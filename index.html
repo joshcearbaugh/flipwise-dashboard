@@ -63,14 +63,8 @@ body{background:#0f0f13;color:#e8e8f0;font-family:-apple-system,BlinkMacSystemFo
 </div>
 
 <script>
-const READ_TOOL = 'mcp__4e751023-d54e-4d32-870e-4f36984707d9__read_file_content';
-const DOC_ID = '1NpEmXqDjj9j9GSVWtXUBo1pZFD7CcgmmB24iLfD1Xnc';
-
-// Correct listing values (update these when listing counts change)
-const LISTINGS = {
-  ebay:   { count: 133,  total_value: 3270.94 },
-  vinted: { count: 92,   total_value: 1556.11 }
-};
+// Data URL - fetches directly from GitHub (public repo, no auth needed)
+const DATA_URL = 'https://raw.githubusercontent.com/joshcearbaugh/flipwise-dashboard/main/data/dashboard_data.json';
 
 let data = null, period = '30d', chart = null;
 
@@ -79,16 +73,9 @@ const fmt = n => '$' + Number(n).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ','
 
 async function load() {
   try {
-    const res = await window.cowork.callMcpTool(READ_TOOL, { fileId: DOC_ID });
-    let raw;
-    try {
-      const env = JSON.parse(res.content[0].text);
-      raw = env.fileContent || env.text || JSON.stringify(env);
-    } catch(e) { raw = res.content[0].text || JSON.stringify(res); }
-    raw = raw.replace(/\\_ /g,'_').replace(/\\\ [/g,'[').replace(/\\\ ]/g,']');
-    data = JSON.parse(raw);
-    data.ebay.listings = { ...LISTINGS.ebay, items: [] };
-    data.vinted.listings = { ...LISTINGS.vinted };
+    const res = await fetch(DATA_URL + '?t=' + Date.now()); // cache bust
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    data = await res.json();
     render();
   } catch(e) {
     $('root').innerHTML = '<div class="err">⚠ Failed to load: ' + e.message + '</div>';
