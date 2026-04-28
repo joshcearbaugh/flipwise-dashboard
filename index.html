@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FlipWise Dashboard</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.5.0/dist/chart.umd.js" integrity="sha384-iU8HYtnGQ8Cy4zl7gbNMOhsDTTKX02BTXptVP/vqAWIaTfM7isw76iyZCsjL2eVi" crossorigin="anonymous"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#0f0f13;color:#e8e8f0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-size:14px;min-height:100vh}
+.header{padding:14px 18px 10px;border-bottom:1px solid #2a2a38;display:flex;align-items:center;justify-content:space-between}
+.header h1{font-size:17px;font-weight:700;letter-spacing:-0.3px}
+.header h1 span{color:#f59e0b}
+.updated{font-size:11px;color:#8888aa}
+.tabs{display:flex;gap:4px;padding:10px 18px 0}
+.tab{padding:5px 13px;border-radius:6px;cursor:pointer;font-size:12px;font-weight:500;background:transparent;border:1px solid #2a2a38;color:#8888aa;transition:all .15s}
+.tab.active{background:#1a1a24;border-color:#444;color:#e8e8f0}
+.content{padding:12px 18px 20px;display:flex;flex-direction:column;gap:12px}
+.platforms{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.card{background:#1a1a24;border:1px solid #2a2a38;border-radius:10px;padding:13px}
+.badge{display:inline-block;padding:2px 9px;border-radius:20px;font-size:10px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;margin-bottom:10px}
+.badge-ebay{background:rgba(245,158,11,.15);color:#f59e0b;border:1px solid rgba(245,158,11,.3)}
+.badge-vinted{background:rgba(59,130,246,.15);color:#3b82f6;border:1px solid rgba(59,130,246,.3)}
+.listings-row{display:flex;align-items:baseline;gap:4px;margin-bottom:9px;padding-bottom:9px;border-bottom:1px solid #2a2a38}
+.lst-count{font-size:21px;font-weight:700}
+.lst-label{font-size:11px;color:#8888aa}
+.lst-value{margin-left:auto;font-size:12px;font-weight:600;color:#22c55e}
+.metric{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:5px}
+.ml{font-size:11px;color:#8888aa}
+.mv{font-size:13px;font-weight:600}
+.mv.gross{color:#e8e8f0}
+.mv.net{color:#22c55e}
+.mv.sm{font-size:11px;color:#8888aa;font-weight:400}
+.combined-card{background:#1a1a24;border:1px solid #2a2a38;border-radius:10px;padding:13px}
+.section-label{font-size:11px;font-weight:600;color:#8888aa;text-transform:uppercase;letter-spacing:.8px;margin-bottom:11px}
+.combined-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;text-align:center}
+.cval{font-size:19px;font-weight:700}
+.cval.gross{color:#e8e8f0}
+.cval.net{color:#22c55e}
+.cval.orders{color:#a78bfa}
+.clbl{font-size:11px;color:#8888aa;margin-top:2px}
+.chart-card{background:#1a1a24;border:1px solid #2a2a38;border-radius:10px;padding:13px}
+.chart-wrap{height:155px}
+.err{background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.3);border-radius:8px;padding:10px 13px;font-size:12px;color:#fca5a5;margin-top:8px}
+.loading{color:#8888aa;font-size:13px;padding:24px;text-align:center}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>Flip<span>Wise</span></h1>
+  <div class="updated" id="ts">Loading…</div>
+</div>
+
+<div class="tabs">
+  <button class="tab active" data-p="30d">30 Days</button>
+  <button class="tab" data-p="90d">90 Days</button>
+  <button class="tab" data-p="all_time">All Time</button>
+</div>
+
+<div class="content">
+  <div id="root"><div class="loading">Loading dashboard…</div></div>
+</div>
+
+<script>
+const READ_TOOL = 'mcp__4e751023-d54e-4d32-870e-4f36984707d9__read_file_content';
+const DOC_ID = '1NpEmXqDjj9j9GSVWtXUBo1pZFD7CcgmmB24iLfD1Xnc';
+
+// Correct listing values (update these when listing counts change)
+const LISTINGS = {
+  ebay:   { count: 133,  total_value: 3270.94 },
+  vinted: { count: 92,   total_value: 1556.11 }
+};
+
+let data = null, period = '30d', chart = null;
+
+const $ = id => document.getElementById(id);
+const fmt = n => '$' + Number(n).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+
+async function load() {
+  try {
+    const res = await window.cowork.callMcpTool(READ_TOOL, { fileId: DOC_ID });
+    let raw;
+    try {
+      const env = JSON.parse(res.content[0].text);
+      raw = env.fileContent || env.text || JSON.stringify(env);
+    } catch(e) { raw = res.content[0].text || JSON.stringify(res); }
+    raw = raw.replace(/\\_ /g,'_').replace(/\\\ [/g,'[').replace(/\\\ ]/g,']');
+    data = JSON.parse(raw);
+    data.ebay.listings = { ...LISTINGS.ebay, items: [] };
+    data.vinted.listings = { ...LISTINGS.vinted };
+    render();
+  } catch(e) {
+    $('root').innerHTML = '<div class="err">⚠ Failed to load: ' + e.message + '</div>';
+  }
+}
+
+function render() {
+  if (!data) return;
+  const er = data.ebay.revenue[period]   || data.ebay.revenue['30d'];
+  const vr = data.vinted.revenue[period] || data.vinted.revenue['30d'];
+  const cr = data.combined_revenue[period] || data.combined_revenue['30d'];
+  const el = data.ebay.listings;
+  const vl = data.vinted.listings;
+
+  $('ts').textContent = 'Updated ' + new Date(data.generated_at).toLocaleDateString('en-US',{month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'});
+
+  $('root').innerHTML = `
+    <div class="platforms">
+      <div class="card">
+        <div class="badge badge-ebay">eBay</div>
+        <div class="listings-row">
+          <span class="lst-count">${el.count}</span>
+          <span class="lst-label">active</span>
+          <span class="lst-value">${fmt(el.total_value)}</span>
+        </div>
+        <div class="metric"><span class="ml">Gross</span><span class="mv gross">${fmt(er.gross)}</span></div>
+        <div class="metric"><span class="ml">Net</span><span class="mv net">${fmt(er.net)}</span></div>
+        <div class="metric"><span class="ml">Orders</span><span class="mv sm">${er.order_count}</span></div>
+        <div class="metric"><span class="ml">Items sold</span><span class="mv sm">${er.items_sold ?? '—'}</span></div>
+        ${er.ebay_fees ? `<div class="metric"><span class="ml">eBay fees</span><span class="mv sm">${fmt(er.ebay_fees)}</span></div>` : ''}
+        ${er.shipping_labels ? `<div class="metric"><span class="ml">Ship labels</span><span class="mv sm">${fmt(er.shipping_labels)}</span></div>` : ''}
+      </div>
+      <div class="card">
+        <div class="badge badge-vinted">Vinted</div>
+        <div class="listings-row">
+          <span class="lst-count">${vl.count}</span>
+          <span class="lst-label">active</span>
+          <span class="lst-value">${fmt(vl.total_value)}</span>
+        </div>
+        <div class="metric"><span class="ml">Gross</span><span class="mv gross">${fmt(vr.gross)}</span></div>
+        <div class="metric"><span class="ml">Net</span><span class="mv net">${fmt(vr.net)}</span></div>
+        <div class="metric"><span class="ml">Orders</span><span class="mv sm">${vr.order_count}</span></div>
+      </div>
+    </div>
+
+    <div class="combined-card">
+      <div class="section-label">Combined · ${period==='30d'?'30 Days':period==='90d'?'90 Days':'All Time'}</div>
+      <div class="combined-grid">
+        <div><div class="cval gross">${fmt(cr.gross)}</div><div class="clbl">Gross</div></div>
+        <div><div class="cval net">${fmt(cr.net)}</div><div class="clbl">Net</div></div>
+        <div><div class="cval orders">${cr.order_count}</div><div class="clbl">Orders</div></div>
+      </div>
+    </div>
+
+    <div class="chart-card">
+      <div class="section-label">Daily Sales — Last 31 Days</div>
+      <div class="chart-wrap"><canvas id="ch"></canvas></div>
+    </div>
+  `;
+
+  buildChart();
+}
+
+function buildChart() {
+  if (!data) return;
+  const daily = data.combined_daily || [];
+  const labels = daily.map(d => {
+    const dt = new Date(d.date + 'T12:00:00Z');
+    return dt.toLocaleDateString('en-US',{month:'short',day:'numeric'});
+  });
+
+  if (chart) { chart.destroy(); chart = null; }
+  const ctx = $('ch');
+  if (!ctx) return;
+
+  chart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels,
+      datasets: [
+        { label:'eBay',   data: daily.map(d => +(d.ebay_gross||0).toFixed(2)),   backgroundColor:'rgba(245,158,11,.85)', stack:'s', borderRadius:2, borderSkipped:false },
+        { label:'Vinted', data: daily.map(d => +(d.vinted_gross||0).toFixed(2)), backgroundColor:'rgba(59,130,246,.85)',  stack:'s', borderRadius:2, borderSkipped:false }
+      ]
+    },
+    options: {
+      responsive:true, maintainAspectRatio:false,
+      plugins: {
+        legend:{ labels:{ color:'#8888aa', font:{size:11}, boxWidth:10, padding:12 } },
+        tooltip:{ backgroundColor:'#1a1a24', borderColor:'#2a2a38', borderWidth:1, titleColor:'#e8e8f0', bodyColor:'#8888aa',
+          callbacks:{ label: c => ' '+c.dataset.label+': $'+c.parsed.y.toFixed(2) } }
+      },
+      scales:{
+        x:{ stacked:true, grid:{color:'rgba(255,255,255,.04)'}, ticks:{color:'#8888aa',font:{size:9},maxRotation:45,maxTicksLimit:12} },
+        y:{ stacked:true, grid:{color:'rgba(255,255,255,.06)'}, ticks:{color:'#8888aa',font:{size:10},callback:v=>'$'+v} }
+      }
+    }
+  });
+}
+
+document.querySelectorAll('.tab').forEach(t => {
+  t.addEventListener('click', () => {
+    document.querySelectorAll('.tab').forEach(x => x.classList.remove('active'));
+    t.classList.add('active');
+    period = t.dataset.p;
+    render();
+  });
+});
+
+load();
+</script>
+</body>
+</html>
