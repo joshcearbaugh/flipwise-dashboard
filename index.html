@@ -43,6 +43,55 @@ body{background:#0f0f13;color:#e8e8f0;font-family:-apple-system,BlinkMacSystemFo
 .chart-wrap{height:155px}
 .err{background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.3);border-radius:8px;padding:10px 13px;font-size:12px;color:#fca5a5;margin-top:8px}
 .loading{color:#8888aa;font-size:13px;padding:24px;text-align:center}
+.fee-card{background:#1a1a24;border:1px solid #2a2a38;border-radius:10px;padding:13px}
+.fee-platforms{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.fee-platform{background:#13131a;border:1px solid #2a2a38;border-radius:8px;padding:10px}
+.fee-platform .platform-name{font-size:11px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;margin-bottom:8px}
+.fee-platform .platform-name.ebay{color:#f59e0b}
+.fee-platform .platform-name.vinted{color:#3b82f6}
+.fee-row{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:4px}
+.fee-lbl{font-size:11px;color:#8888aa}
+.fee-val{font-size:12px;font-weight:500;color:#ef4444}
+.fee-total-row{display:flex;justify-content:space-between;align-items:baseline;margin-top:7px;padding-top:7px;border-top:1px solid #2a2a38}
+.fee-total-lbl{font-size:11px;font-weight:600;color:#e8e8f0}
+.fee-total-val{font-size:13px;font-weight:700;color:#ef4444}
+.fee-zero{font-size:12px;font-weight:500;color:#22c55e}
+.avg-card{background:#1a1a24;border:1px solid #2a2a38;border-radius:10px;padding:13px}
+.avg-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.avg-platform{background:#13131a;border:1px solid #2a2a38;border-radius:8px;padding:10px;text-align:center}
+.avg-platform-name{font-size:10px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;margin-bottom:6px}
+.avg-platform-name.ebay{color:#f59e0b}
+.avg-platform-name.vinted{color:#3b82f6}
+.avg-price{font-size:22px;font-weight:700;color:#e8e8f0;margin-bottom:3px}
+.avg-sub{font-size:10px;color:#8888aa}
+.goal-card{background:#1a1a24;border:1px solid #2a2a38;border-radius:10px;padding:13px}
+.goal-item{margin-bottom:12px}
+.goal-item:last-child{margin-bottom:0}
+.goal-header{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px}
+.goal-month{font-size:12px;font-weight:600;color:#e8e8f0}
+.goal-amounts{font-size:11px;color:#8888aa}
+.goal-bar-bg{background:#2a2a38;border-radius:6px;height:8px;overflow:hidden}
+.goal-bar-fill{height:100%;border-radius:6px;transition:width .4s ease}
+.goal-bar-fill.current{background:linear-gradient(90deg,#f59e0b,#fbbf24)}
+.goal-bar-fill.future{background:#2a2a38}
+.goal-status{display:flex;justify-content:space-between;margin-top:5px}
+.goal-pct{font-size:11px;font-weight:600}
+.goal-pct.on-track{color:#22c55e}
+.goal-pct.behind{color:#f59e0b}
+.goal-pct.future-txt{color:#8888aa}
+.goal-remaining{font-size:10px;color:#8888aa}
+.str-card{background:#1a1a24;border:1px solid #2a2a38;border-radius:10px;padding:13px}
+.str-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.str-platform{background:#13131a;border:1px solid #2a2a38;border-radius:8px;padding:10px}
+.str-platform-name{font-size:10px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;margin-bottom:8px}
+.str-platform-name.ebay{color:#f59e0b}
+.str-platform-name.vinted{color:#3b82f6}
+.str-pct{font-size:22px;font-weight:700;color:#e8e8f0;margin-bottom:4px}
+.str-bar-bg{background:#2a2a38;border-radius:4px;height:5px;overflow:hidden;margin-bottom:5px}
+.str-bar-fill{height:100%;border-radius:4px}
+.str-bar-fill.ebay{background:#f59e0b}
+.str-bar-fill.vinted{background:#3b82f6}
+.str-detail{font-size:10px;color:#8888aa}
 </style>
 </head>
 <body>
@@ -63,23 +112,29 @@ body{background:#0f0f13;color:#e8e8f0;font-family:-apple-system,BlinkMacSystemFo
 </div>
 
 <script>
-// Data URL - fetches directly from GitHub (public repo, no auth needed)
 const DATA_URL = 'https://raw.githubusercontent.com/joshcearbaugh/flipwise-dashboard/main/data/dashboard_data.json';
 
 let data = null, period = '30d', chart = null;
 
 const $ = id => document.getElementById(id);
 const fmt = n => '$' + Number(n).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+const fmtPct = n => n.toFixed(1) + '%';
+const clamp = (v,lo,hi) => Math.min(Math.max(v,lo),hi);
 
 async function load() {
   try {
-    const res = await fetch(DATA_URL + '?t=' + Date.now()); // cache bust
+    const res = await fetch(DATA_URL + '?t=' + Date.now());
     if (!res.ok) throw new Error('HTTP ' + res.status);
     data = await res.json();
     render();
   } catch(e) {
     $('root').innerHTML = '<div class="err">⚠ Failed to load: ' + e.message + '</div>';
   }
+}
+
+function sumMonth(dailyArr, ym) {
+  return (dailyArr || []).filter(d => d.date && d.date.startsWith(ym))
+    .reduce((s, d) => s + (d.gross || 0), 0);
 }
 
 function render() {
@@ -91,6 +146,59 @@ function render() {
   const vl = data.vinted.listings;
 
   $('ts').textContent = 'Updated ' + new Date(data.generated_at).toLocaleDateString('en-US',{month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'});
+
+  const e30 = data.ebay.revenue['30d'];
+  const ebayFees    = e30.ebay_fees      || 0;
+  const ebayShip    = e30.shipping_labels || 0;
+  const ebayShipChg = e30.shipping_charged || 0;
+  const ebayTotalFees = ebayFees + ebayShip;
+
+  const ebayAvg   = er.order_count > 0 ? er.gross / er.order_count : 0;
+  const vintedAvg = vr.order_count > 0 ? vr.gross / vr.order_count : 0;
+
+  const eStr = el.count > 0 ? (er.items_sold || er.order_count) / el.count * 100 : 0;
+  const vStr = vl.count > 0 ? (vr.order_count) / vl.count * 100 : 0;
+
+  const now = new Date();
+  const thisYM = now.toISOString().slice(0,7);
+  const nextYM = (() => { const d=new Date(now); d.setMonth(d.getMonth()+1); return d.toISOString().slice(0,7); })();
+  const goals = data.goals || {};
+
+  const ebayMTD   = sumMonth(data.ebay.daily_sales,   thisYM);
+  const vintedMTD = sumMonth(data.vinted.daily_sales, thisYM);
+  const totalMTD  = ebayMTD + vintedMTD;
+
+  function goalHTML(ym, mtdRevenue) {
+    if (!goals[ym]) return '';
+    const g = goals[ym];
+    const target = g.monthly_revenue;
+    const isCurrentMonth = ym === thisYM;
+    const isFuture = ym > thisYM;
+    const current = isCurrentMonth ? mtdRevenue : (isFuture ? 0 : target);
+    const pct = clamp(current / target * 100, 0, 100);
+    const remaining = Math.max(target - current, 0);
+    const daysInMonth = new Date(parseInt(ym.slice(0,4)), parseInt(ym.slice(5,7)), 0).getDate();
+    const dayOfMonth = isCurrentMonth ? now.getDate() : (isFuture ? 0 : daysInMonth);
+    const projectedRevenue = isCurrentMonth && dayOfMonth > 0 ? current / dayOfMonth * daysInMonth : 0;
+    const isOnTrack = projectedRevenue >= target;
+    const pctClass = isFuture ? 'future-txt' : (isOnTrack ? 'on-track' : 'behind');
+    const pctLabel = isFuture ? 'Upcoming' : (pct >= 100 ? '✓ Goal hit!' : (isOnTrack ? 'On track' : 'Behind pace'));
+    const remainLabel = isFuture ? `Goal: ${fmt(target)}` : (pct >= 100 ? '' : `${fmt(remaining)} to go`);
+    return `
+      <div class="goal-item">
+        <div class="goal-header">
+          <span class="goal-month">${g.label} ${ym.slice(0,4)}</span>
+          <span class="goal-amounts">${isCurrentMonth ? fmt(current)+' / ' : ''}${fmt(target)}</span>
+        </div>
+        <div class="goal-bar-bg">
+          <div class="goal-bar-fill ${isFuture ? 'future' : 'current'}" style="width:${pct}%"></div>
+        </div>
+        <div class="goal-status">
+          <span class="goal-pct ${pctClass}">${pctLabel}</span>
+          <span class="goal-remaining">${remainLabel}</span>
+        </div>
+      </div>`;
+  }
 
   $('root').innerHTML = `
     <div class="platforms">
@@ -105,8 +213,6 @@ function render() {
         <div class="metric"><span class="ml">Net</span><span class="mv net">${fmt(er.net)}</span></div>
         <div class="metric"><span class="ml">Orders</span><span class="mv sm">${er.order_count}</span></div>
         <div class="metric"><span class="ml">Items sold</span><span class="mv sm">${er.items_sold ?? '—'}</span></div>
-        ${er.ebay_fees ? `<div class="metric"><span class="ml">eBay fees</span><span class="mv sm">${fmt(er.ebay_fees)}</span></div>` : ''}
-        ${er.shipping_labels ? `<div class="metric"><span class="ml">Ship labels</span><span class="mv sm">${fmt(er.shipping_labels)}</span></div>` : ''}
       </div>
       <div class="card">
         <div class="badge badge-vinted">Vinted</div>
@@ -127,6 +233,71 @@ function render() {
         <div><div class="cval gross">${fmt(cr.gross)}</div><div class="clbl">Gross</div></div>
         <div><div class="cval net">${fmt(cr.net)}</div><div class="clbl">Net</div></div>
         <div><div class="cval orders">${cr.order_count}</div><div class="clbl">Orders</div></div>
+      </div>
+    </div>
+
+    <div class="goal-card">
+      <div class="section-label">Monthly Goals</div>
+      ${goalHTML(thisYM, totalMTD)}
+      ${goalHTML(nextYM, 0)}
+    </div>
+
+    <div class="fee-card">
+      <div class="section-label">Fee Breakdown · 30 Days</div>
+      <div class="fee-platforms">
+        <div class="fee-platform">
+          <div class="platform-name ebay">eBay</div>
+          <div class="fee-row"><span class="fee-lbl">Selling fees</span><span class="fee-val">${fmt(ebayFees)}</span></div>
+          <div class="fee-row"><span class="fee-lbl">Ship labels</span><span class="fee-val">${fmt(ebayShip)}</span></div>
+          <div class="fee-row"><span class="fee-lbl">Ship charged</span><span class="fee-val" style="color:#22c55e">+${fmt(ebayShipChg)}</span></div>
+          <div class="fee-total-row">
+            <span class="fee-total-lbl">Net fees out</span>
+            <span class="fee-total-val">${fmt(Math.max(ebayTotalFees - ebayShipChg, 0))}</span>
+          </div>
+        </div>
+        <div class="fee-platform">
+          <div class="platform-name vinted">Vinted</div>
+          <div class="fee-row"><span class="fee-lbl">Selling fees</span><span class="fee-zero">$0.00</span></div>
+          <div class="fee-row"><span class="fee-lbl">Buyer pays ship</span><span class="fee-zero">✓</span></div>
+          <div class="fee-total-row">
+            <span class="fee-total-lbl">Net fees out</span>
+            <span class="fee-zero" style="font-size:13px;font-weight:700">$0.00</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="avg-card">
+      <div class="section-label">Avg Sale Price · ${period==='30d'?'30 Days':period==='90d'?'90 Days':'All Time'}</div>
+      <div class="avg-grid">
+        <div class="avg-platform">
+          <div class="avg-platform-name ebay">eBay</div>
+          <div class="avg-price">${fmt(ebayAvg)}</div>
+          <div class="avg-sub">${er.order_count} orders</div>
+        </div>
+        <div class="avg-platform">
+          <div class="avg-platform-name vinted">Vinted</div>
+          <div class="avg-price">${fmt(vintedAvg)}</div>
+          <div class="avg-sub">${vr.order_count} orders</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="str-card">
+      <div class="section-label">Sell-Through Rate · 30 Days</div>
+      <div class="str-grid">
+        <div class="str-platform">
+          <div class="str-platform-name ebay">eBay</div>
+          <div class="str-pct">${fmtPct(eStr)}</div>
+          <div class="str-bar-bg"><div class="str-bar-fill ebay" style="width:${clamp(eStr,0,100)}%"></div></div>
+          <div class="str-detail">${er.items_sold || er.order_count} sold / ${el.count} listed</div>
+        </div>
+        <div class="str-platform">
+          <div class="str-platform-name vinted">Vinted</div>
+          <div class="str-pct">${fmtPct(vStr)}</div>
+          <div class="str-bar-bg"><div class="str-bar-fill vinted" style="width:${clamp(vStr,0,100)}%"></div></div>
+          <div class="str-detail">${vr.order_count} sold / ${vl.count} listed</div>
+        </div>
       </div>
     </div>
 
