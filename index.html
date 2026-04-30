@@ -213,6 +213,7 @@ function render() {
         <div class="metric"><span class="ml">Net</span><span class="mv net">${fmt(er.net)}</span></div>
         <div class="metric"><span class="ml">Orders</span><span class="mv sm">${er.order_count}</span></div>
         <div class="metric"><span class="ml">Items sold</span><span class="mv sm">${er.items_sold ?? '—'}</span></div>
+        <div class="metric"><span class="ml">Avg net/sale</span><span class="mv net" style="font-size:11px">${er.order_count > 0 ? fmt(er.net / er.order_count) : '—'}</span></div>
       </div>
       <div class="card">
         <div class="badge badge-vinted">Vinted</div>
@@ -224,6 +225,7 @@ function render() {
         <div class="metric"><span class="ml">Gross</span><span class="mv gross">${fmt(vr.gross)}</span></div>
         <div class="metric"><span class="ml">Net</span><span class="mv net">${fmt(vr.net)}</span></div>
         <div class="metric"><span class="ml">Orders</span><span class="mv sm">${vr.order_count}</span></div>
+        <div class="metric"><span class="ml">Avg net/sale</span><span class="mv net" style="font-size:11px">${vr.order_count > 0 ? fmt(vr.net / vr.order_count) : '—'}</span></div>
       </div>
     </div>
 
