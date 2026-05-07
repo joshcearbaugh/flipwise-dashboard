@@ -1,24 +1,18 @@
 {
-  "generated_at": "2026-05-06T10:18:27.288613+00:00",
+  "generated_at": "2026-05-07T10:15:07.826082+00:00",
   "status": "ok",
   "ebay": {
     "listings": {
-      "count": 198,
-      "total_value": 4145.06,
+      "count": 210,
+      "total_value": 4136.62,
       "items": []
     },
     "daily_sales": [
       {
-        "date": "2026-04-06",
-        "count": 0,
-        "gross": 0,
-        "net": 0.0
-      },
-      {
         "date": "2026-04-07",
         "count": 2,
         "gross": 61.21,
-        "net": 36.07
+        "net": 32.45
       },
       {
         "date": "2026-04-08",
@@ -30,37 +24,37 @@
         "date": "2026-04-09",
         "count": 1,
         "gross": 26.17,
-        "net": 15.99
+        "net": 13.87
       },
       {
         "date": "2026-04-10",
-        "count": 0,
+        "count": 1,
         "gross": 0,
         "net": 0.0
       },
       {
         "date": "2026-04-11",
-        "count": 6,
+        "count": 2,
         "gross": 141.58,
-        "net": 66.15
+        "net": 75.06
       },
       {
         "date": "2026-04-12",
-        "count": 1,
+        "count": 2,
         "gross": 34.94,
-        "net": 23.57
+        "net": 18.52
       },
       {
         "date": "2026-04-13",
-        "count": 3,
+        "count": 2,
         "gross": 57.94,
-        "net": 27.31
+        "net": 30.72
       },
       {
         "date": "2026-04-14",
         "count": 1,
         "gross": 15.93,
-        "net": 8.81
+        "net": 8.45
       },
       {
         "date": "2026-04-15",
@@ -70,15 +64,15 @@
       },
       {
         "date": "2026-04-16",
-        "count": 1,
+        "count": 2,
         "gross": 26.39,
-        "net": 14.75
+        "net": 13.99
       },
       {
         "date": "2026-04-17",
-        "count": 2,
+        "count": 3,
         "gross": 50.3,
-        "net": 29.46
+        "net": 26.67
       },
       {
         "date": "2026-04-18",
@@ -88,45 +82,45 @@
       },
       {
         "date": "2026-04-19",
-        "count": 5,
+        "count": 4,
         "gross": 112.04,
-        "net": 48.42
+        "net": 59.4
       },
       {
         "date": "2026-04-20",
-        "count": 3,
+        "count": 4,
         "gross": 73.67,
-        "net": 36.28
+        "net": 39.06
       },
       {
         "date": "2026-04-21",
-        "count": 0,
+        "count": 1,
         "gross": 8.66,
-        "net": 3.87
+        "net": 4.59
       },
       {
         "date": "2026-04-22",
-        "count": 1,
+        "count": 2,
         "gross": 25.46,
-        "net": 15.86
+        "net": 13.5
       },
       {
         "date": "2026-04-23",
-        "count": 1,
+        "count": 2,
         "gross": 29.98,
-        "net": 17.49
+        "net": 15.89
       },
       {
         "date": "2026-04-24",
-        "count": 6,
+        "count": 7,
         "gross": 144.66,
-        "net": 76.34
+        "net": 76.69
       },
       {
         "date": "2026-04-25",
         "count": 2,
         "gross": 35.31,
-        "net": 17.13
+        "net": 18.72
       },
       {
         "date": "2026-04-26",
@@ -136,9 +130,9 @@
       },
       {
         "date": "2026-04-27",
-        "count": 6,
+        "count": 2,
         "gross": 140.73,
-        "net": 63.71
+        "net": 74.61
       },
       {
         "date": "2026-04-28",
@@ -150,46 +144,52 @@
         "date": "2026-04-29",
         "count": 1,
         "gross": 29.04,
-        "net": 11.66
+        "net": 15.4
       },
       {
         "date": "2026-04-30",
-        "count": 1,
+        "count": 2,
         "gross": 19.18,
-        "net": 8.42
+        "net": 10.17
       },
       {
         "date": "2026-05-01",
-        "count": 1,
+        "count": 2,
         "gross": 44.11,
-        "net": 29.0
+        "net": 23.39
       },
       {
         "date": "2026-05-02",
-        "count": 0,
+        "count": 1,
         "gross": 11.99,
-        "net": 7.2
+        "net": 6.36
       },
       {
         "date": "2026-05-03",
-        "count": 4,
+        "count": 1,
         "gross": 96.68,
-        "net": 48.81
+        "net": 51.26
       },
       {
         "date": "2026-05-04",
         "count": 1,
         "gross": 34.35,
-        "net": 21.18
+        "net": 18.21
       },
       {
         "date": "2026-05-05",
-        "count": 2,
+        "count": 3,
         "gross": 49.74,
-        "net": 25.97
+        "net": 26.37
       },
       {
         "date": "2026-05-06",
+        "count": 3,
+        "gross": 127.46,
+        "net": 67.57
+      },
+      {
+        "date": "2026-05-07",
         "count": 0,
         "gross": 0,
         "net": 0.0
@@ -197,100 +197,94 @@
     ],
     "revenue": {
       "30d": {
-        "gross": 1270.06,
-        "net": 653.43,
-        "shipping_charged": 166.83,
+        "gross": 1397.52,
+        "net": 740.9,
+        "shipping_charged": 184.03,
         "order_count": 51,
-        "items_sold": 51,
-        "ebay_fees": 284.7,
-        "shipping_labels": 331.93
+        "items_sold": 54,
+        "ebay_fees": 308.5,
+        "shipping_labels": 348.12
       },
       "90d": {
-        "gross": 1270.06,
-        "net": 653.43,
+        "gross": 1397.52,
+        "net": 740.9,
         "order_count": 51,
-        "items_sold": 51
+        "items_sold": 54
       },
       "all_time": {
-        "gross": 1270.06,
-        "net": 653.43,
+        "gross": 1397.52,
+        "net": 740.9,
         "order_count": 51,
-        "items_sold": 51
+        "items_sold": 54
       }
     },
-    "note": "Revenue from eBay Seller Hub. Net = gross minus eBay fees and shipping label costs. 90d/all_time approximated to 30d (UI date-range scrape pending)."
+    "note": "Revenue from eBay Seller Hub. Net = gross minus eBay fees and shipping label costs."
   },
   "vinted": {
     "listings": {
-      "count": 127,
-      "total_value": 1718.31
+      "count": 141,
+      "total_value": 1872.34
     },
     "daily_sales": [
       {
-        "date": "2026-04-06",
-        "count": 0,
-        "gross": 0,
-        "net": 0
-      },
-      {
         "date": "2026-04-07",
         "count": 0,
-        "gross": 0,
-        "net": 0
+        "gross": 0.0,
+        "net": 0.0
       },
       {
         "date": "2026-04-08",
         "count": 0,
-        "gross": 0,
-        "net": 0
+        "gross": 0.0,
+        "net": 0.0
       },
       {
         "date": "2026-04-09",
         "count": 0,
-        "gross": 0,
-        "net": 0
+        "gross": 0.0,
+        "net": 0.0
       },
       {
         "date": "2026-04-10",
         "count": 0,
-        "gross": 0,
-        "net": 0
+        "gross": 0.0,
+        "net": 0.0
       },
       {
         "date": "2026-04-11",
         "count": 0,
-        "gross": 0,
-        "net": 0
+        "gross": 0.0,
+        "net": 0.0
       },
       {
         "date": "2026-04-12",
         "count": 0,
-        "gross": 0,
-        "net": 0
+        "gross": 0.0,
+        "net": 0.0
       },
       {
         "date": "2026-04-13",
         "count": 0,
-        "gross": 0,
-        "net": 0
+        "gross": 0.0,
+        "net": 0.0
       },
       {
         "date": "2026-04-14",
         "count": 0,
-        "gross": 0,
-        "net": 0
+        "gross": 0.0,
+        "net": 0.0
       },
       {
         "date": "2026-04-15",
         "count": 0,
-        "gross": 0,
-        "net": 0
+        "gross": 0.0,
+        "net": 0.0
       },
       {
         "date": "2026-04-16",
         "count": 0,
-        "gross": 0,
-        "net": 0
+        "gross": 0.0,
+        "net": 0.0
       },
       {
         "date": "2026-04-17",
@@ -307,14 +301,14 @@
       {
         "date": "2026-04-19",
         "count": 0,
-        "gross": 0,
-        "net": 0
+        "gross": 0.0,
+        "net": 0.0
       },
       {
         "date": "2026-04-20",
         "count": 1,
-        "gross": 6,
-        "net": 6
+        "gross": 6.0,
+        "net": 6.0
       },
       {
         "date": "2026-04-21",
@@ -331,14 +325,14 @@
       {
         "date": "2026-04-23",
         "count": 1,
-        "gross": 10,
-        "net": 10
+        "gross": 10.0,
+        "net": 10.0
       },
       {
         "date": "2026-04-24",
         "count": 1,
-        "gross": 12,
-        "net": 12
+        "gross": 12.0,
+        "net": 12.0
       },
       {
         "date": "2026-04-25",
@@ -349,8 +343,8 @@
       {
         "date": "2026-04-26",
         "count": 0,
-        "gross": 0,
-        "net": 0
+        "gross": 0.0,
+        "net": 0.0
       },
       {
         "date": "2026-04-27",
@@ -361,26 +355,26 @@
       {
         "date": "2026-04-28",
         "count": 0,
-        "gross": 0,
-        "net": 0
+        "gross": 0.0,
+        "net": 0.0
       },
       {
         "date": "2026-04-29",
         "count": 0,
-        "gross": 0,
-        "net": 0
+        "gross": 0.0,
+        "net": 0.0
       },
       {
         "date": "2026-04-30",
         "count": 1,
-        "gross": 10,
-        "net": 10
+        "gross": 10.0,
+        "net": 10.0
       },
       {
         "date": "2026-05-01",
         "count": 1,
-        "gross": 12,
-        "net": 12
+        "gross": 12.0,
+        "net": 12.0
       },
       {
         "date": "2026-05-02",
@@ -397,20 +391,26 @@
       {
         "date": "2026-05-04",
         "count": 0,
-        "gross": 0,
-        "net": 0
+        "gross": 0.0,
+        "net": 0.0
       },
       {
         "date": "2026-05-05",
         "count": 1,
-        "gross": 7,
-        "net": 7
+        "gross": 7.0,
+        "net": 7.0
       },
       {
         "date": "2026-05-06",
         "count": 0,
-        "gross": 0,
-        "net": 0
+        "gross": 0.0,
+        "net": 0.0
+      },
+      {
+        "date": "2026-05-07",
+        "count": 0,
+        "gross": 0.0,
+        "net": 0.0
       }
     ],
     "revenue": {
@@ -430,24 +430,15 @@
         "order_count": 20
       }
     },
-    "note": "Vinted sellers receive full listing price; buyer pays the Vinted protection fee on top. my_orders endpoint only exposes recent orders, so 90d/all_time mirror the 30d figure."
+    "note": "Vinted sellers receive full listing price; buyer pays the Vinted protection fee on top."
   },
   "combined_daily": [
-    {
-      "date": "2026-04-06",
-      "ebay_count": 0,
-      "ebay_gross": 0,
-      "vinted_count": 0,
-      "vinted_gross": 0,
-      "total_count": 0,
-      "total_gross": 0
-    },
     {
       "date": "2026-04-07",
       "ebay_count": 2,
       "ebay_gross": 61.21,
       "vinted_count": 0,
-      "vinted_gross": 0,
+      "vinted_gross": 0.0,
       "total_count": 2,
       "total_gross": 61.21
     },
@@ -456,53 +447,53 @@
       "ebay_count": 0,
       "ebay_gross": 0,
       "vinted_count": 0,
-      "vinted_gross": 0,
+      "vinted_gross": 0.0,
       "total_count": 0,
-      "total_gross": 0
+      "total_gross": 0.0
     },
     {
       "date": "2026-04-09",
       "ebay_count": 1,
       "ebay_gross": 26.17,
       "vinted_count": 0,
-      "vinted_gross": 0,
+      "vinted_gross": 0.0,
       "total_count": 1,
       "total_gross": 26.17
     },
     {
       "date": "2026-04-10",
-      "ebay_count": 0,
+      "ebay_count": 1,
       "ebay_gross": 0,
       "vinted_count": 0,
-      "vinted_gross": 0,
-      "total_count": 0,
-      "total_gross": 0
+      "vinted_gross": 0.0,
+      "total_count": 1,
+      "total_gross": 0.0
     },
     {
       "date": "2026-04-11",
-      "ebay_count": 6,
+      "ebay_count": 2,
       "ebay_gross": 141.58,
       "vinted_count": 0,
-      "vinted_gross": 0,
-      "total_count": 6,
+      "vinted_gross": 0.0,
+      "total_count": 2,
       "total_gross": 141.58
     },
     {
       "date": "2026-04-12",
-      "ebay_count": 1,
+      "ebay_count": 2,
       "ebay_gross": 34.94,
       "vinted_count": 0,
-      "vinted_gross": 0,
-      "total_count": 1,
+      "vinted_gross": 0.0,
+      "total_count": 2,
       "total_gross": 34.94
     },
     {
       "date": "2026-04-13",
-      "ebay_count": 3,
+      "ebay_count": 2,
       "ebay_gross": 57.94,
       "vinted_count": 0,
-      "vinted_gross": 0,
-      "total_count": 3,
+      "vinted_gross": 0.0,
+      "total_count": 2,
       "total_gross": 57.94
     },
     {
@@ -510,7 +501,7 @@
       "ebay_count": 1,
       "ebay_gross": 15.93,
       "vinted_count": 0,
-      "vinted_gross": 0,
+      "vinted_gross": 0.0,
       "total_count": 1,
       "total_gross": 15.93
     },
@@ -519,26 +510,26 @@
       "ebay_count": 0,
       "ebay_gross": 0,
       "vinted_count": 0,
-      "vinted_gross": 0,
+      "vinted_gross": 0.0,
       "total_count": 0,
-      "total_gross": 0
+      "total_gross": 0.0
     },
     {
       "date": "2026-04-16",
-      "ebay_count": 1,
+      "ebay_count": 2,
       "ebay_gross": 26.39,
       "vinted_count": 0,
-      "vinted_gross": 0,
-      "total_count": 1,
+      "vinted_gross": 0.0,
+      "total_count": 2,
       "total_gross": 26.39
     },
     {
       "date": "2026-04-17",
-      "ebay_count": 2,
+      "ebay_count": 3,
       "ebay_gross": 50.3,
       "vinted_count": 1,
       "vinted_gross": 14.5,
-      "total_count": 3,
+      "total_count": 4,
       "total_gross": 64.8
     },
     {
@@ -552,56 +543,56 @@
     },
     {
       "date": "2026-04-19",
-      "ebay_count": 5,
+      "ebay_count": 4,
       "ebay_gross": 112.04,
       "vinted_count": 0,
-      "vinted_gross": 0,
-      "total_count": 5,
+      "vinted_gross": 0.0,
+      "total_count": 4,
       "total_gross": 112.04
     },
     {
       "date": "2026-04-20",
-      "ebay_count": 3,
+      "ebay_count": 4,
       "ebay_gross": 73.67,
       "vinted_count": 1,
-      "vinted_gross": 6,
-      "total_count": 4,
+      "vinted_gross": 6.0,
+      "total_count": 5,
       "total_gross": 79.67
     },
     {
       "date": "2026-04-21",
-      "ebay_count": 0,
+      "ebay_count": 1,
       "ebay_gross": 8.66,
       "vinted_count": 4,
       "vinted_gross": 37.21,
-      "total_count": 4,
+      "total_count": 5,
       "total_gross": 45.87
     },
     {
       "date": "2026-04-22",
-      "ebay_count": 1,
+      "ebay_count": 2,
       "ebay_gross": 25.46,
       "vinted_count": 1,
       "vinted_gross": 9.89,
-      "total_count": 2,
+      "total_count": 3,
       "total_gross": 35.35
     },
     {
       "date": "2026-04-23",
-      "ebay_count": 1,
+      "ebay_count": 2,
       "ebay_gross": 29.98,
       "vinted_count": 1,
-      "vinted_gross": 10,
-      "total_count": 2,
+      "vinted_gross": 10.0,
+      "total_count": 3,
       "total_gross": 39.98
     },
     {
       "date": "2026-04-24",
-      "ebay_count": 6,
+      "ebay_count": 7,
       "ebay_gross": 144.66,
       "vinted_count": 1,
-      "vinted_gross": 12,
-      "total_count": 7,
+      "vinted_gross": 12.0,
+      "total_count": 8,
       "total_gross": 156.66
     },
     {
@@ -618,17 +609,17 @@
       "ebay_count": 0,
       "ebay_gross": 0,
       "vinted_count": 0,
-      "vinted_gross": 0,
+      "vinted_gross": 0.0,
       "total_count": 0,
-      "total_gross": 0
+      "total_gross": 0.0
     },
     {
       "date": "2026-04-27",
-      "ebay_count": 6,
+      "ebay_count": 2,
       "ebay_gross": 140.73,
       "vinted_count": 1,
       "vinted_gross": 3.91,
-      "total_count": 7,
+      "total_count": 3,
       "total_gross": 144.64
     },
     {
@@ -636,53 +627,53 @@
       "ebay_count": 0,
       "ebay_gross": 0,
       "vinted_count": 0,
-      "vinted_gross": 0,
+      "vinted_gross": 0.0,
       "total_count": 0,
-      "total_gross": 0
+      "total_gross": 0.0
     },
     {
       "date": "2026-04-29",
       "ebay_count": 1,
       "ebay_gross": 29.04,
       "vinted_count": 0,
-      "vinted_gross": 0,
+      "vinted_gross": 0.0,
       "total_count": 1,
       "total_gross": 29.04
     },
     {
       "date": "2026-04-30",
-      "ebay_count": 1,
+      "ebay_count": 2,
       "ebay_gross": 19.18,
       "vinted_count": 1,
-      "vinted_gross": 10,
-      "total_count": 2,
+      "vinted_gross": 10.0,
+      "total_count": 3,
       "total_gross": 29.18
     },
     {
       "date": "2026-05-01",
-      "ebay_count": 1,
+      "ebay_count": 2,
       "ebay_gross": 44.11,
       "vinted_count": 1,
-      "vinted_gross": 12,
-      "total_count": 2,
+      "vinted_gross": 12.0,
+      "total_count": 3,
       "total_gross": 56.11
     },
     {
       "date": "2026-05-02",
-      "ebay_count": 0,
+      "ebay_count": 1,
       "ebay_gross": 11.99,
       "vinted_count": 3,
       "vinted_gross": 35.6,
-      "total_count": 3,
+      "total_count": 4,
       "total_gross": 47.59
     },
     {
       "date": "2026-05-03",
-      "ebay_count": 4,
+      "ebay_count": 1,
       "ebay_gross": 96.68,
       "vinted_count": 1,
       "vinted_gross": 3.6,
-      "total_count": 5,
+      "total_count": 2,
       "total_gross": 100.28
     },
     {
@@ -690,43 +681,52 @@
       "ebay_count": 1,
       "ebay_gross": 34.35,
       "vinted_count": 0,
-      "vinted_gross": 0,
+      "vinted_gross": 0.0,
       "total_count": 1,
       "total_gross": 34.35
     },
     {
       "date": "2026-05-05",
-      "ebay_count": 2,
+      "ebay_count": 3,
       "ebay_gross": 49.74,
       "vinted_count": 1,
-      "vinted_gross": 7,
-      "total_count": 3,
+      "vinted_gross": 7.0,
+      "total_count": 4,
       "total_gross": 56.74
     },
     {
       "date": "2026-05-06",
+      "ebay_count": 3,
+      "ebay_gross": 127.46,
+      "vinted_count": 0,
+      "vinted_gross": 0.0,
+      "total_count": 3,
+      "total_gross": 127.46
+    },
+    {
+      "date": "2026-05-07",
       "ebay_count": 0,
       "ebay_gross": 0,
       "vinted_count": 0,
-      "vinted_gross": 0,
+      "vinted_gross": 0.0,
       "total_count": 0,
-      "total_gross": 0
+      "total_gross": 0.0
     }
   ],
   "combined_revenue": {
     "30d": {
-      "gross": 1452.17,
-      "net": 835.54,
+      "gross": 1579.63,
+      "net": 923.01,
       "order_count": 71
     },
     "90d": {
-      "gross": 1452.17,
-      "net": 835.54,
+      "gross": 1579.63,
+      "net": 923.01,
       "order_count": 71
     },
     "all_time": {
-      "gross": 1452.17,
-      "net": 835.54,
+      "gross": 1579.63,
+      "net": 923.01,
       "order_count": 71
     }
   }
